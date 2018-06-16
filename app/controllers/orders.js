@@ -14,7 +14,9 @@ exports.orders = function(req, res, next){
 
 exports.order = function(req, res, next){
   var order_id = req.params.order_id
-  db.query("select * from orders JOIN customers ON WHERE orderNumber = '" + order_id +"'",function(err,rows){
+  var sql = "select * from orders WHERE orderNumber = '" + order_id +"'"
+  console.log(sql);
+  db.query(sql,function(err,rows){
     if (err) res.send('Something went wrong.') // database
     res.header('content-type', 'json')
     res.send(200, rows)

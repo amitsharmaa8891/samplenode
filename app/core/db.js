@@ -1,13 +1,13 @@
 var mysql = require('mysql');
 var db;
-
+var settings = require('../../settings.js')
 function connectDatabase() {
     if (!db) {
         db = mysql.createConnection({
-          host     : '127.0.0.1',
-          user     : 'root',
-          password : '',
-          database : 'shop'
+          host     : settings.DB_HOST,
+          user     : settings.DB_USERNAME,
+          password : settings.DB_PASSWORD,
+          database : settings.DB_DATABASE
         });
 
         db.connect(function(err){

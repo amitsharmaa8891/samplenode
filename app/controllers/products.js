@@ -1,14 +1,16 @@
 var db = require('../core/db.js')
+var settings = require('../../settings.js')
 
 exports.products = function(req, res, next){
-  console.log(JSON.stringify(req.query['q']))
-  var serach = ''
-  if (req.query['q'])
-    search = 'WHERE productName LIKE "%' + req.query["q"] + '%"'
+  console.log(JSON.stringify(req.query));
   var PER_PAGE = req.query['limit']
   var page = req.query['offset']
   var skip = PER_PAGE * (page - 1);
-  var sql = "select * from products "+ search+" LIMIT " + parseInt(skip) + ", " + PER_PAGE
+  var search = ''
+  if (req.query['q'])
+    search = 'WHERE productName LIKE "%' + req.query["q"] + '%"'
+  var sql = "select * from products "+ search +" LIMIT " + parseInt(skip) + ", " + PER_PAGE
+  // console.log(sql);
   db.query(sql,function(err,rows){
     if (err) res.send('Something went wrong.')
 
